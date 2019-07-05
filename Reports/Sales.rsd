@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description />
+  <DataSet Name="Sales">
+    <Query>
+      <DataSourceReference>AdventureWorksDW2017</DataSourceReference>
+      <CommandText>select DimSalesTerritory.SalesTerritoryGroup, DimDate.CalendarYear, sum(FactResellerSales.SalesAmount) AS SalesAmount,
+sum(FactResellerSales.OrderQuantity) AS OrderQuantity
+from FactResellerSales inner join DimSalesTerritory on FactResellerSales.SalesTerritoryKey = DimSalesTerritory.SalesTerritoryKey
+inner join DimDate on FactResellerSales.OrderDateKey=DimDate.DateKey
+group by DimSalesTerritory.SalesTerritoryGroup,DimDate.CalendarYear 
+order by DimSalesTerritory.SalesTerritoryGroup,DimDate.CalendarYear</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="SalesTerritoryGroup">
+        <DataField>SalesTerritoryGroup</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CalendarYear">
+        <DataField>CalendarYear</DataField>
+        <rd:TypeName>System.Int16</rd:TypeName>
+      </Field>
+      <Field Name="SalesAmount">
+        <DataField>SalesAmount</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="OrderQuantity">
+        <DataField>OrderQuantity</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
